@@ -4,17 +4,16 @@ import NewsEditor from './components/NewsEditor';
 import PlayerManager from './components/PlayerManager';
 
 class AdminPanel extends Component {
-
-    state = {
-        isLoggedIn : false,
-        username : '',
-        selection : 0
-    };
-
-    componentDidMount()
-    {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn : false,
+            username : '',
+            selection : 0
+        };
         this.openNewsEditor = this.openNewsEditor.bind(this);
-        this.openPlayerManagement = this.openPlayerManagement(this);
+        this.openPlayerManagement = this.openPlayerManagement.bind(this);
+        this.renderPanelSelection = this.renderPanelSelection.bind(this);
     }
 
     handleLogin = userName => {
@@ -75,7 +74,6 @@ class AdminPanel extends Component {
             newsEditor : 1,
             playerManager : 2
         };
-
         switch(this.state.selection) {
             case selections.newsEditor:
                 return <NewsEditor/>;

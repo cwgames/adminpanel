@@ -6,16 +6,26 @@ class PlayerListing extends Component {
         this.state = {
             editable : false
         }
+        this.handleReadOnlyChkBox = this.handleReadOnlyChkBox.bind(this);
+        this.handleConfirmChanges = this.handleConfirmChanges.bind(this);
     }
     
     componentDidMount() {
-        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+        
     }
 
-    handleCheckBoxChange() {
+    handleReadOnlyChkBox() {
         this.setState(prevState => {
             return {editable : !prevState.editable};
         });
+    }
+
+    handleConfirmChanges() {
+        const text = this.props.username;
+        var isPositiveResponse = window.confirm('Confrim changes for '+text+'?');
+        if (isPositiveResponse) {
+            this.props.commitPlayerChanges(this.props.id);
+        }
     }
 
     render() {
@@ -23,7 +33,7 @@ class PlayerListing extends Component {
             <td>
                 <p>Edit user?</p>
                 <input type='checkbox' value={this.state.editable} 
-                    onChange={this.handleCheckBoxChange}/>
+                    onChange={this.handleReadOnlyChkBox}/>
             </td>
             <td>
                 <p>Username:</p>
@@ -46,11 +56,11 @@ class PlayerListing extends Component {
                     onChange={(event) => this.props.handleAdminChange(event,this.props.id)}/>
             </td>
             <td>
-                <button>Delete</button>
+                <button >Delete</button>
                 <button>Change password</button>
             </td>
             <td>
-                <button>Confirm changes</button>
+                <button onClick={this.handleConfirmChanges}>Confirm changes</button>
             </td>
         </tr>)
     }

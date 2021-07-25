@@ -3,3 +3,7 @@ export const NewsConfiguration = {
     Date_Length : 8,
     Txt_Location : '../news.txt'
 }
+
+export const PlayerManagerConfiguration = {
+    OPTION_UPDATE : 3
+}
